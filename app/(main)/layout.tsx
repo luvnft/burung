@@ -10,7 +10,7 @@ type Props = {
 const Layout = ({ children }: Props) => {
   return (
     <QueryProviderComponent>
-      <div className="lg:overflow-hidden h-screen">
+      <div className="h-screen">
         <Navbar />
         {children}
         <Footer />

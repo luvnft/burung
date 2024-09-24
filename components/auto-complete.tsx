@@ -1,68 +1,84 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
-import { QuerySearchAddress } from "@/hooks/use-query";
+import React, { useEffect, useMemo, useState } from "react";
+import { QueryRetrieveAddress, QuerySearchAddress } from "@/hooks/use-query";
 import { Input } from "./ui/input";
 import { debounce } from "lodash";
 
 type Props = {
-  value: string | null;
   placeholder: string;
-  setValue: (value: string) => void;
+  setValue: ({ lat, long }: { lat: number; long: number }) => void;
 };
 
 type ItemType = {
+  mapbox_id: string;
   name: string;
   place_formatted: string;
+  full_address: string;
 };
 
-const AutoCompleteComponent = ({ value, placeholder, setValue }: Props) => {
+const AutoCompleteComponent = ({ placeholder, setValue }: Props) => {
   const [address, setAddress] = useState("");
+  const [mapboxID, setMapboxID] = useState("");
+  const [queryAddress, setQueryAddress] = useState("");
   const [items, setItems] = useState<ItemType[]>([]);
+  const [openBox, setOpenBox] = useState(false);
 
-  const debounceSearch = useCallback(
-    debounce((nextValue: string) => {
-      setAddress(nextValue);
-    }, 500),
+  const debounceSearch = useMemo(
+    () => debounce((nextValue: string) => setQueryAddress(nextValue), 500),
     []
   );
 
   const handleChangeInput = (value: string) => {
-    setValue(value);
+    setAddress(value);
     debounceSearch(value);
   };
 
-  const { data } = QuerySearchAddress(address);
+  const { data: searchData } = QuerySearchAddress(queryAddress);
+
+  const { data: retrieveData } = QueryRetrieveAddress(mapboxID);
 
   const handleSelectAddress = (item: ItemType) => {
     setItems([]);
-    setValue(item.place_formatted);
+    setMapboxID(item.mapbox_id);
+    setAddress(item.place_formatted);
   };
 
   useEffect(() => {
-    if (data?.data?.suggestions) {
-      setItems(data.data.suggestions);
+    if (retrieveData?.data?.features[0]?.geometry) {
+      setValue({
+        lat: retrieveData.data.features[0]?.geometry?.coordinates[1],
+        long: retrieveData.data.features[0]?.geometry?.coordinates[0],
+      });
+    }
+  }, [retrieveData, setValue]);
+
+  useEffect(() => {
+    if (searchData?.data?.suggestions) {
+      setItems(searchData.data.suggestions);
     } else {
       setItems([]);
     }
-  }, [data]);
+  }, [searchData]);
+
   return (
     <div className="relative">
       <Input
         placeholder={placeholder}
-        value={value ?? ""}
+        value={address}
         onChange={(e) => handleChangeInput(e.target.value)}
+        onFocus={() => setOpenBox((prev) => !prev)}
       />
-      {items && items.length > 0 && (
+      {items.length > 0 && openBox && (
         <div className="absolute bg-white shadow-md rounded mt-2 w-full z-10">
-          {items.map((item, index: number) => (
-            <div
-              key={index}
-              className="p-2 hover:bg-gray-200 cursor-pointer flex flex-col gap-2"
-              onClick={() => handleSelectAddress(item)} // Pass the selected item
+          {items.map((item) => (
+            <button
+              key={item.mapbox_id}
+              className="p-2 hover:bg-gray-200 cursor-pointer flex flex-col w-full gap-2 text-left"
+              onClick={() => handleSelectAddress(item)}
             >
               <span className="text-xs text-gray-500">{item.name}</span>
               <p className="text-md">{item.place_formatted}</p>
-            </div>
+            </button>
           ))}
         </div>
       )}

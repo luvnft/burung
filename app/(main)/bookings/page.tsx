@@ -3,85 +3,117 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import Wrapper from "@/components/wrapper";
 import React, { useEffect, useState } from "react";
-import MapComponent from "@/components/map";
 import AutoCompleteComponent from "@/components/auto-complete";
+import CarComponents from "@/components/car";
+import PaymentComponent from "@/components/payment";
+import ReactMapbox from "@/components/mapbox/map";
 
 const Page = () => {
-  const [cardHeight, setCardHeight] = useState(0);
-  const [addressOrigin, setAddressOrigin] = useState("");
-  const [addressDestination, setAddressDestination] = useState("");
+  const [addressOriginCoordinates, setAddressOriginCoordinates] = useState({
+    lat: 0,
+    long: 0,
+  });
+  const [addressDestinationCoordinates, setAddressDestinationCoordinates] =
+    useState({
+      lat: 0,
+      long: 0,
+    });
+  const [paymentType, setPaymentType] = useState("");
+  const [carType, setCarType] = useState("");
+  const [userLocation, setUserLocation] = useState({
+    long: 0,
+    lat: 0,
+  });
+
+  const getUserLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserLocation({
+          long: pos.coords.longitude,
+          lat: pos.coords.latitude,
+        });
+      },
+      (error) => {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            console.error("Izin lokasi ditolak oleh pengguna.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.error("Lokasi tidak tersedia.");
+            break;
+          case error.TIMEOUT:
+            console.error("Permintaan lokasi melebihi waktu tunggu.");
+            break;
+          default:
+            console.error("Terjadi kesalahan saat mendapatkan lokasi.");
+            break;
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      }
+    );
+  };
 
   useEffect(() => {
-    if (window) {
-      setCardHeight(window.innerHeight * 0.7);
-    }
+    getUserLocation();
   }, []);
+
   return (
     <Wrapper>
       <div className="mt-36">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 lg:col-span-5">
-            <Card
-              style={{ height: `${Math.floor(cardHeight)}px` }}
-              className="lg:h-auto"
-            >
+            <Card className="lg:h-screen">
               <CardHeader>
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-2">
                     <Label className="text-gray-500">Where From?</Label>
                     <AutoCompleteComponent
                       placeholder="type your location..."
-                      value={addressOrigin}
-                      setValue={setAddressOrigin}
+                      setValue={setAddressOriginCoordinates}
                     />
                   </div>
                   <div className="flex flex-col gap-2">
                     <Label className="text-gray-500">Where To?</Label>
                     <AutoCompleteComponent
                       placeholder="type your destination..."
-                      value={addressDestination}
-                      setValue={setAddressDestination}
+                      setValue={setAddressDestinationCoordinates}
                     />
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <Label className="text-gray-500">Select Car</Label>
-                    <div className="grid grid-cols-3 gap-4">
-                      <Card>
-                        <CardHeader>Economy</CardHeader>
-                      </Card>
-                      <Card>
-                        <CardHeader>Special</CardHeader>
-                      </Card>
-                      <Card>
-                        <CardHeader>Luxury</CardHeader>
-                      </Card>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Label className="text-gray-500">Payment Method</Label>
-                    <div className="grid grid-cols-3 gap-4">
-                      <Card>
-                        <CardHeader>Economy</CardHeader>
-                      </Card>
-                      <Card>
-                        <CardHeader>Special</CardHeader>
-                      </Card>
-                      <Card>
-                        <CardHeader>Luxury</CardHeader>
-                      </Card>
-                    </div>
-                  </div>
+                  {addressOriginCoordinates &&
+                    addressDestinationCoordinates && (
+                      <>
+                        <div className="flex flex-col gap-2">
+                          <Label className="text-gray-500">Select Car</Label>
+                          <CarComponents
+                            value={carType}
+                            setValue={setCarType}
+                          />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <Label className="text-gray-500">
+                            Payment Method
+                          </Label>
+                          <PaymentComponent
+                            value={paymentType}
+                            setValue={setPaymentType}
+                          />
+                        </div>
+                      </>
+                    )}
                 </div>
               </CardHeader>
             </Card>
           </div>
           <div className="col-span-12 lg:col-span-7">
-            {/* <Card
-              style={{ height: `${Math.floor(cardHeight)}px` }}
-              className="lg:h-auto"
-            >
-            </Card> */}
-            <MapComponent />
+            <ReactMapbox
+              location={userLocation}
+              addressOriginCoordinates={addressOriginCoordinates}
+              addressDestinationCoordinates={addressDestinationCoordinates}
+            />
           </div>
         </div>
       </div>

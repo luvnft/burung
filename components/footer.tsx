@@ -5,7 +5,7 @@ import { Separator } from "./ui/separator";
 const Footer = () => {
   return (
     <Wrapper>
-      <div className="lg:mt-20 mt-40">
+      <div className="mt-32">
         <Separator />
         <div className="my-5 text-center text-muted-foreground">
           &copy; {new Date().getFullYear()} | All rights reserved

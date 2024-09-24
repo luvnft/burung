@@ -46,7 +46,7 @@ const Navbar = () => {
               height={30}
             />
             <Link href={"/"} className="font-bold text-xl">
-              Taxiku
+              BurungBiru
             </Link>
           </aside>
           <nav className="gap-4 hidden lg:flex flex-grow justify-center items-center">
