@@ -26,4 +26,4 @@
 | ------------------------------------ | --------------------------------------------- | ------------------------------------------- |
 | ![Home Page](./screenshots/home.png) | ![Live Search](./screenshots/live-search.png) | ![Live Route](./screenshots/live-route.png) |
 
-Made with ❤️ by BurungBiru Team
+Made with ❤️ by Aswinnn
