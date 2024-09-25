@@ -1,8 +1,10 @@
 import React from "react";
 import { Layer, Source } from "react-map-gl";
 
+type Coordinate = [number, number];
+
 type Props = {
-  coordinates: any;
+  coordinates: Coordinate[];
 };
 
 const MapboxRoute = ({ coordinates }: Props) => {
