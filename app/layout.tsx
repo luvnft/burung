@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 import NextTopLoader from "nextjs-toploader";
 
 const geistSans = localFont({
@@ -18,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Taxiku",
+  title: "Burung Biru",
   description: "Platform to ordering a taxi.",
 };
 
@@ -28,15 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ baseTheme: dark }}>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased h-[100vh] md:h-[100vh]`}
-        >
-          <NextTopLoader color="#1e40af" />
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-[100vh] md:h-[100vh]`}
+      >
+        <NextTopLoader color="#1e40af" />
+        {children}
+      </body>
+    </html>
   );
 }

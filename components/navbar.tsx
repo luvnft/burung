@@ -5,7 +5,6 @@ import React from "react";
 import Link from "next/link";
 import Wrapper from "./wrapper";
 import { ChevronRight, GanttChart } from "lucide-react";
-import { UserButton, useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import {
@@ -14,7 +13,6 @@ import {
   SheetDescription,
   SheetFooter,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
 import { Button } from "./ui/button";
@@ -31,7 +29,6 @@ const items = [
 ];
 
 const Navbar = () => {
-  const { user } = useUser();
   const pathname = usePathname();
   return (
     <div className="w-full fixed top-0 left-0 right-0 z-50 p-4">
@@ -71,15 +68,6 @@ const Navbar = () => {
                 Book Now
                 <ChevronRight />
               </Link>
-              <UserButton
-                appearance={{
-                  elements: {
-                    userButtonPopoverActionButton__manageAccount: {
-                      display: "none",
-                    },
-                  },
-                }}
-              />
             </div>
             <div className="block lg:hidden">
               <Sheet>
@@ -89,41 +77,8 @@ const Navbar = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent className="flex flex-col justify-between">
-                  <SheetHeader>
-                    <div className="grid grid-cols-2 justify-center items-center gap-4 mt-10">
-                      {user ? (
-                        <>
-                          <div className="flex gap-2 items-center">
-                            <UserButton
-                              appearance={{
-                                elements: {
-                                  userButtonPopoverActionButton__manageAccount:
-                                    {
-                                      display: "none",
-                                    },
-                                },
-                              }}
-                            />
-                          </div>
-
-                          <SheetTitle>| {user?.firstName}</SheetTitle>
-                        </>
-                      ) : (
-                        <Link
-                          href={"/users"}
-                          className="border border-input text-primary bg-background hover:bg-accent rounded-md px-4 py-2 flex justify-center items-center"
-                        >
-                          Login
-                          <ChevronRight />
-                        </Link>
-                      )}
-                    </div>
-                  </SheetHeader>
-                  <nav
-                    className={`gap-4 flex flex-col flex-grow ${
-                      user ? "pt-10" : "pt-3"
-                    }`}
-                  >
+                  <SheetHeader>BurungBiru</SheetHeader>
+                  <nav className={`gap-4 flex flex-col flex-grow pt-3`}>
                     {items.map((nav) => (
                       <Link
                         href={nav.url}
@@ -142,7 +97,7 @@ const Navbar = () => {
                   </nav>
                   <SheetFooter>
                     <SheetDescription>
-                      &copy; 2024 Taxiku | All rights reserved
+                      &copy; 2024 BurungBiru | All rights reserved
                     </SheetDescription>
                   </SheetFooter>
                 </SheetContent>
