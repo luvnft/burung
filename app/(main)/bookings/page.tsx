@@ -20,6 +20,7 @@ const Page = () => {
     });
   const [paymentType, setPaymentType] = useState("");
   const [carType, setCarType] = useState("");
+  const [chargesFee, setChargesFee] = useState(1);
   const [userLocation, setUserLocation] = useState({
     long: 0,
     lat: 0,
@@ -83,14 +84,15 @@ const Page = () => {
                       setValue={setAddressDestinationCoordinates}
                     />
                   </div>
-                  {addressOriginCoordinates &&
-                    addressDestinationCoordinates && (
+                  {!!addressOriginCoordinates.lat &&
+                    !!addressDestinationCoordinates.lat && (
                       <>
                         <div className="flex flex-col gap-2">
                           <Label className="text-gray-500">Select Car</Label>
                           <CarComponents
                             value={carType}
                             setValue={setCarType}
+                            chargesFee={chargesFee}
                           />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -113,6 +115,7 @@ const Page = () => {
               location={userLocation}
               addressOriginCoordinates={addressOriginCoordinates}
               addressDestinationCoordinates={addressDestinationCoordinates}
+              setChargesFee={setChargesFee}
             />
           </div>
         </div>

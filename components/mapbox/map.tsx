@@ -13,6 +13,7 @@ import Map, {
 import "mapbox-gl/dist/mapbox-gl.css";
 import { QueryNavigationRoute } from "@/hooks/use-query";
 import MapboxRoute from "./route";
+import MapboxInformation from "./information";
 
 type LocationType = { lat: number; long: number };
 
@@ -20,12 +21,14 @@ type Props = {
   location: LocationType | null;
   addressOriginCoordinates: LocationType | null;
   addressDestinationCoordinates: LocationType | null;
+  setChargesFee: (fee: number) => void;
 };
 
 const ReactMapbox = ({
   location,
   addressOriginCoordinates,
   addressDestinationCoordinates,
+  setChargesFee,
 }: Props) => {
   const [viewState, setViewState] = useState({
     longitude: location?.long ?? 0,
@@ -68,6 +71,14 @@ const ReactMapbox = ({
   }, [addressDestinationCoordinates]);
 
   useEffect(() => {
+    if (directionRoute) {
+      const distance = directionRoute?.data?.routes[0]?.distance;
+      const price = distance * 0.000621371192;
+      setChargesFee(price);
+    }
+  }, [directionRoute, setChargesFee]);
+
+  useEffect(() => {
     if (location) {
       setViewState({
         longitude: location.long,
@@ -99,11 +110,17 @@ const ReactMapbox = ({
           <AttributionControl customAttribution="Map design by Aswinnn" />
 
           {directionRoute && (
-            <MapboxRoute
-              coordinates={
-                directionRoute?.data?.routes[0]?.geometry?.coordinates
-              }
-            />
+            <>
+              <MapboxRoute
+                coordinates={
+                  directionRoute?.data?.routes[0]?.geometry?.coordinates
+                }
+              />
+              <MapboxInformation
+                distance={directionRoute?.data?.routes[0]?.distance}
+                time={directionRoute?.data?.routes[0]?.duration}
+              />
+            </>
           )}
 
           {addressOriginCoordinates?.lat && (

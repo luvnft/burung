@@ -7,10 +7,11 @@ import { formatPrice } from "@/hooks/use-price-format";
 
 type Props = {
   value?: string;
+  chargesFee?: number;
   setValue: (value: string) => void;
 };
 
-const CarComponents = ({ value, setValue }: Props) => {
+const CarComponents = ({ value, chargesFee, setValue }: Props) => {
   const chooseCar = (car: string) => {
     if (value === car) {
       return setValue("");
@@ -39,7 +40,9 @@ const CarComponents = ({ value, setValue }: Props) => {
           </div>
           <CardHeader>
             <CardTitle className="text-xl">{car.name}</CardTitle>
-            <CardDescription>{formatPrice(car.price)}</CardDescription>
+            <CardDescription>
+              {chargesFee && formatPrice(chargesFee * car.price)}
+            </CardDescription>
           </CardHeader>
         </Card>
       ))}
