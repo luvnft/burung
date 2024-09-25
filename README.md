@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BurungBiru - Online Taxi Ordering Platform
 
-## Getting Started
+**BurungBiru** is a modern platform that allows users to order taxis online with ease. Built with cutting-edge technologies, it provides a seamless user experience, integrating real-time map interactions and fast data handling.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Real-time Map Integration**: Powered by Mapbox for live location tracking and routing.
+- **Online Taxi Ordering**: Users can order a taxi and get real-time directions.
+- **Fast and Efficient**: Leverages React Query for efficient data fetching and caching.
+- **Modern UI**: Built using **shadcn/ui** for a clean, accessible, and responsive interface.
+- **Server Actions**: Efficient server-side operations using Next.js server actions.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js**: Full-stack framework for the web.
+- **shadcn/ui**: A beautiful and customizable UI library.
+- **React Query**: Data-fetching and caching for API interactions.
+- **Mapbox**: Interactive maps for live tracking and route management.
+- **TypeScript**: Type-safe coding environment.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🖥️ Screenshots
 
-## Learn More
+(Include screenshots here of the app interface, e.g., the main map page, order confirmation, etc.)
 
-To learn more about Next.js, take a look at the following resources:
+| Home Page                            | Live Search                                   | Live Route                                  |
+| ------------------------------------ | --------------------------------------------- | ------------------------------------------- |
+| ![Home Page](./screenshots/home.png) | ![Live Search](./screenshots/live-search.png) | ![Live Route](./screenshots/live-route.png) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made with ❤️ by BurungBiru Team

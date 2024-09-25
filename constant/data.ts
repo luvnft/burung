@@ -1,22 +1,22 @@
 export const cars = [
   {
     name: "Economy",
-    image: "./mobil1.webp",
+    image: "/mobil1.webp",
     price: 18000,
   },
   {
     name: "Special",
-    image: "./mobil2.webp",
+    image: "/mobil2.webp",
     price: 25000,
   },
   {
     name: "Express",
-    image: "./mobil3.webp",
+    image: "/mobil3.webp",
     price: 32000,
   },
   {
     name: "Luxury",
-    image: "./mobil4.webp",
+    image: "/mobil4.webp",
     price: 50000,
   },
 ];
@@ -24,14 +24,14 @@ export const cars = [
 export const payments = [
   {
     name: "Paypal",
-    image: "./paypal.png",
+    image: "/paypal.png",
   },
   {
     name: "Dana",
-    image: "./dana.png",
+    image: "/dana.png",
   },
   {
     name: "BCA",
-    image: "./bca.png",
+    image: "/bca.png",
   },
 ];
