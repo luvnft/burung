@@ -7,6 +7,9 @@ import AutoCompleteComponent from "@/components/auto-complete";
 import CarComponents from "@/components/car";
 import PaymentComponent from "@/components/payment";
 import ReactMapbox from "@/components/mapbox/map";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { formatPrice } from "@/hooks/use-price-format";
 
 const Page = () => {
   const [addressOriginCoordinates, setAddressOriginCoordinates] = useState({
@@ -21,6 +24,7 @@ const Page = () => {
   const [paymentType, setPaymentType] = useState("");
   const [carType, setCarType] = useState("");
   const [chargesFee, setChargesFee] = useState(1);
+  const [totalFee, setTotalFee] = useState(0);
   const [userLocation, setUserLocation] = useState({
     long: 0,
     lat: 0,
@@ -93,6 +97,7 @@ const Page = () => {
                             value={carType}
                             setValue={setCarType}
                             chargesFee={chargesFee}
+                            setTotalFee={setTotalFee}
                           />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -103,6 +108,16 @@ const Page = () => {
                             value={paymentType}
                             setValue={setPaymentType}
                           />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <Link
+                            href={`/payments?amount=${formatPrice(totalFee)}`}
+                            className={buttonVariants({
+                              variant: "default",
+                            })}
+                          >
+                            Pay {formatPrice(totalFee)}
+                          </Link>
                         </div>
                       </>
                     )}

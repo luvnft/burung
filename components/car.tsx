@@ -9,15 +9,21 @@ type Props = {
   value?: string;
   chargesFee?: number;
   setValue: (value: string) => void;
+  setTotalFee: (fee: number) => void;
 };
 
-const CarComponents = ({ value, chargesFee, setValue }: Props) => {
-  const chooseCar = (car: string) => {
-    if (value === car) {
+const CarComponents = ({ value, chargesFee, setValue, setTotalFee }: Props) => {
+  const chooseCar = (name: string, price: number) => {
+    if (!chargesFee) {
+      return;
+    }
+
+    if (value === name) {
       return setValue("");
     }
 
-    return setValue(car);
+    setValue(name);
+    setTotalFee(price * chargesFee);
   };
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
@@ -27,7 +33,7 @@ const CarComponents = ({ value, chargesFee, setValue }: Props) => {
           className={`hover:bg-gray-100 cursor-pointer ${
             value === car.name && "border border-blue-500 transition-all"
           }`}
-          onClick={() => chooseCar(car.name)}
+          onClick={() => chooseCar(car.name, car.price)}
         >
           <div className="relative h-[100px]">
             <Image
