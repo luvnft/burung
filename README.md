@@ -1,6 +1,6 @@
 # BurungBiru - Online Taxi Ordering Platform
 
-**BurungBiru** is a modern platform that allows users to order taxis online with ease. Built with cutting-edge technologies, it provides a seamless user experience, integrating real-time map interactions and fast data handling.
+**BurungBiru** is a personal learning project focused on mastering Mapbox through building a taxi-ordering platform. It explores real-time map interactions and modern web technologies.
 
 ## 🚀 Features
 
@@ -9,6 +9,7 @@
 - **Fast and Efficient**: Leverages React Query for efficient data fetching and caching.
 - **Modern UI**: Built using **shadcn/ui** for a clean, accessible, and responsive interface.
 - **Server Actions**: Efficient server-side operations using Next.js server actions.
+- **Secure Payments**: Integrated with Stripe for seamless and secure payment processing.
 
 ## 🛠️ Tech Stack
 
@@ -17,6 +18,7 @@
 - **React Query**: Data-fetching and caching for API interactions.
 - **Mapbox**: Interactive maps for live tracking and route management.
 - **TypeScript**: Type-safe coding environment.
+- **Stripe**: Payment integration for handling transactions.
 
 ## 🖥️ Screenshots
 
