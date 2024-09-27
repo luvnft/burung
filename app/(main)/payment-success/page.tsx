@@ -1,13 +1,19 @@
 "use client";
 
 import Wrapper from "@/components/wrapper";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { formatPrice } from "@/hooks/use-price-format";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 
-const Page = () => {
+const Fallback = () => (
+  <div className="text-black text-center">
+    <p>Loading...</p>
+  </div>
+);
+
+const PageContent = () => {
   const searchParams = useSearchParams();
   const amount_query = searchParams.get("amount");
   const amount_fee = Number(amount_query);
@@ -20,7 +26,7 @@ const Page = () => {
           <h2 className="text-2xl">You successfully sent</h2>
 
           <div className="bg-white p-2 rounded-md text-purple-500 mt-5 text-4xl font-bold">
-            ${formatPrice(amount_fee)}
+            {formatPrice(amount_fee)}
           </div>
 
           <Link
@@ -36,5 +42,11 @@ const Page = () => {
     </Wrapper>
   );
 };
+
+const Page = () => (
+  <Suspense fallback={<Fallback />}>
+    <PageContent />
+  </Suspense>
+);
 
 export default Page;

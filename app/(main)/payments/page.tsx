@@ -1,7 +1,7 @@
 "use client";
 
 import Wrapper from "@/components/wrapper";
-import React from "react";
+import React, { Suspense } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/checkout-form";
@@ -19,14 +19,21 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
 );
 
-const Page = () => {
+const Fallback = () => (
+  <div className="text-black text-center">
+    <p>Loading...</p>
+  </div>
+);
+
+const PageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const amount_query = searchParams.get("amount");
   const amount_fee = parsePrice(amount_query!);
 
   if (!amount_fee) {
-    return router.push("/bookings");
+    router.push("/bookings");
+    return null;
   }
 
   return (
@@ -46,5 +53,11 @@ const Page = () => {
     </Wrapper>
   );
 };
+
+const Page = () => (
+  <Suspense fallback={<Fallback />}>
+    <PageContent />
+  </Suspense>
+);
 
 export default Page;
