@@ -43,7 +43,7 @@ const Navbar = () => {
               height={30}
             />
             <Link href={"/"} className="font-bold text-xl">
-              BurungBiru
+              TaxiE
             </Link>
           </aside>
           <nav className="gap-4 hidden lg:flex flex-grow justify-center items-center">
@@ -77,7 +77,7 @@ const Navbar = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent className="flex flex-col justify-between">
-                  <SheetHeader>BurungBiru</SheetHeader>
+                  <SheetHeader>TaxiE</SheetHeader>
                   <nav className={`gap-4 flex flex-col flex-grow pt-3`}>
                     {items.map((nav) => (
                       <Link
@@ -97,7 +97,7 @@ const Navbar = () => {
                   </nav>
                   <SheetFooter>
                     <SheetDescription>
-                      &copy; 2024 BurungBiru | All rights reserved
+                      &copy; 2024 TaxiE | All rights reserved
                     </SheetDescription>
                   </SheetFooter>
                 </SheetContent>

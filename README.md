@@ -1,6 +1,6 @@
-# BurungBiru - Online Taxi Ordering Platform
+# TaxiE - Online Taxi Ordering Platform
 
-**BurungBiru** is a personal learning project focused on mastering Mapbox through building a taxi-ordering platform. It explores real-time map interactions and modern web technologies.
+**TaxiE** is a personal learning project focused on mastering Mapbox through building a taxi-ordering platform. It explores real-time map interactions and modern web technologies.
 
 ## 🚀 Features
 
@@ -28,4 +28,4 @@
 | ------------------------------------ | --------------------------------------------- | ------------------------------------------- |
 | ![Home Page](./screenshots/home.png) | ![Live Search](./screenshots/live-search.png) | ![Live Route](./screenshots/live-route.png) |
 
-Made with ❤️ by Aswinnn
+Made with ❤️ by the Wizard of Hahz
